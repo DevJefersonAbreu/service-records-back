@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  php:
+    container_name: service-records-php
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - service-records-network
+
+  nginx:
+    container_name: service-records-nginx
+    build:
+        context: ./docker/nginx
+        dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    ports:
+        - '8080:80'
+        - '443:443'
+    volumes:
+        - ./:/var/www
+        - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+        - service-records-network
+
+
+
+  mysql:
+    container_name: service-records-mysql
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    tty: true
+    volumes:
+      - mega-sena-data:/var/lib/mysql/
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - service-records-network
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+
+  redis:
+    container_name: service-records-redis
+    build:
+        context: ./docker/redis
+        dockerfile: Dockerfile
+    ports:
+    - '6379:6379'
+
+
+networks:
+  service-records-network:
+    driver: bridge
+
+
+volumes:
+  mega-sena-data:
+    driver: local
