@@ -89,16 +89,10 @@ A aplicação estará acessível em: [http://localhost:8000](http://localhost:80
   "nome_paciente": "João da Silva",
   "telefone": "11999999999",
   "endereco": "Rua das Flores, 123, São Paulo, SP",
-  "data_solicitacao": "2024-03-11 14:30:00"
+  "data_solicitacao": "2024-03-11"
 }
 ```
 
-**Resposta:**
-```json
-{
-  "protocolo": "12345678",
-  "status": "Atendimento registrado com sucesso"
-}
 ```
 
 ### **Listar Solicitações**
@@ -112,8 +106,7 @@ A aplicação estará acessível em: [http://localhost:8000](http://localhost:80
     "nome_paciente": "João da Silva",
     "telefone": "11999999999",
     "endereco": "Rua das Flores, 123, São Paulo, SP",
-    "data_solicitacao": "2024-03-11 14:30:00",
-    "protocolo": "12345678"
+    "data_solicitacao": "2024-03-11",
   }
 ]
 ```
