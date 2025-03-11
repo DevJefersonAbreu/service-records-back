@@ -42,25 +42,3 @@ Execute o seguinte comando para subir os containers do Docker:
 ```bash
 docker-compose up -d
 
-
-Instale as Dependências do Projeto
-Acesse o container do Laravel e instale as dependências do Composer:
-
-
-docker-compose exec app bash
-composer install
-
-
-Execute as Migrações e Seeders
-Dentro do container, execute as migrações e seeders para configurar o banco de dados:
-
-
-php artisan migrate --seed
-
-
-Execute os Testes
-Para garantir que tudo está funcionando corretamente, execute os testes:
-
-
-php artisan test
-
